@@ -87,3 +87,15 @@ body{background:var(--cloud);color:var(--plum)}.topbar{background:rgba(241,239,2
 
 /* Center the hero composition on wide screens. */
 @media(min-width:761px){.hero-stage{width:100%;max-width:1480px;margin-left:auto;margin-right:auto;grid-template-columns:1fr 1fr}.hero-title-wrap{margin:0;text-align:center}.hero h1{text-align:center}.hero-one-line{text-align:center}.hero-cta{margin-left:auto;margin-right:auto}.hero-visual{justify-self:center;transform:none}.hero-sticker{left:50%;transform:translateX(-50%) rotate(12deg)}}
+
+
+/* Keep the hero title in place while aligning its text to the left. */
+@media(min-width:761px){.hero h1{text-align:left}}
+@media(max-width:760px){.hero h1{text-align:left}}
+
+/* Align the hero copy as one left edge, with a small rightward shift. */
+@media(min-width:761px){.hero-title-wrap{padding-left:29px;text-align:left}.hero h1{text-align:left}.hero-one-line{text-align:left}.hero-cta{margin-left:0;margin-right:0}}
+
+
+/* Nudge the complete hero copy group 10px to the right. */
+.hero-title-wrap{transform:translateX(10px)}
