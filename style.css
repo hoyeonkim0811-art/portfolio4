@@ -80,3 +80,10 @@ body{background:var(--cloud);color:var(--plum)}.topbar{background:rgba(241,239,2
 /* Fit the longer opening statement while keeping its hierarchy clear. */
 .hero h1{font-size:clamp(38px,4.2vw,62px);line-height:1.36;letter-spacing:-.055em}.hero h1 span{letter-spacing:-.045em}.hero-one-line{font:700 11px var(--mono);letter-spacing:.14em;color:var(--red);margin:20px 0 23px}@media(max-width:760px){.hero h1{font-size:clamp(29px,8vw,42px);line-height:1.42;letter-spacing:-.045em}.hero h1 span{letter-spacing:-.04em}.hero-one-line{font-size:9px;line-height:1.5;letter-spacing:.12em;margin:13px 0 17px}}
 
+
+/* Tighten the horizontal gap between the hero statement and featured character. */
+.hero-stage{grid-template-columns:1fr 1fr}.hero-title-wrap{margin-left:4.5%}.hero-visual{justify-self:center;margin-right:0;transform:translateX(-7vw)}@media(max-width:760px){.hero-stage{grid-template-columns:1fr}.hero-title-wrap{margin-left:0}.hero-visual{transform:none}}
+
+
+/* Center the hero composition on wide screens. */
+@media(min-width:761px){.hero-stage{width:100%;max-width:1480px;margin-left:auto;margin-right:auto;grid-template-columns:1fr 1fr}.hero-title-wrap{margin:0;text-align:center}.hero h1{text-align:center}.hero-one-line{text-align:center}.hero-cta{margin-left:auto;margin-right:auto}.hero-visual{justify-self:center;transform:none}.hero-sticker{left:50%;transform:translateX(-50%) rotate(12deg)}}
