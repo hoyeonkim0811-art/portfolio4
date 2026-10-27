@@ -99,3 +99,25 @@ body{background:var(--cloud);color:var(--plum)}.topbar{background:rgba(241,239,2
 
 /* Nudge the complete hero copy group 10px to the right. */
 .hero-title-wrap{transform:translateX(10px)}
+
+
+/* Give selected work previews more room on wide screens. */
+@media(min-width:761px){.work-section .project-grid{width:min(100%,1240px)}}
+
+
+/* Expand the work gallery to 85% of the viewport width. */
+.work-section .project-grid{width:85vw;max-width:none;margin-left:auto;margin-right:auto}
+
+
+/* Let the work section span about 95% of the viewport. */
+.work-section{padding-left:2.5vw;padding-right:2.5vw}.work-section .project-grid{width:100%}
+
+
+/* Restore the original selected work width and section padding. */
+.work-section{padding-left:9.5vw;padding-right:9.5vw}.work-section .project-grid{width:min(100%,1000px)}
+
+
+/* Widen project detail modal so its copy and artwork have room. */
+.project-dialog{width:80vw;max-width:none}.dialog-description{max-width:min(100%,900px)}
+@media(max-width:760px){.project-dialog{width:calc(100% - 20px)}.dialog-content{padding:22px 5% 28px}}
+
