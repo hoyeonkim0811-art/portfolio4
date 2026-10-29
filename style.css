@@ -160,3 +160,5 @@ body{background:var(--cloud);color:var(--plum)}.topbar{background:rgba(241,239,2
 .collage-note b{color:#ed795d;margin-left:5px}
 .hero-stage>.hero-sticker{display:none}
 @media(max-width:760px){.hero-collage .collage-piece{padding:5px;box-shadow:0 10px 22px #29233724}.hero-collage .collage-book{left:2%;top:16%;width:32%;height:55%}.hero-collage .collage-character{left:34%;top:29%;width:29%;height:63%}.hero-collage .collage-board{left:39%;top:8%;width:57%;height:42%;transform:rotate(6deg)}.hero-collage .collage-board img{inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);transform:scale(1.32)}.hero-collage .collage-brand{left:66%;top:50%;width:30%;height:42%}.hero-collage .collage-mushy{left:-1%;top:57%;width:47%;height:35%}.collage-note{right:0;bottom:0;font-size:7px;padding:7px 9px}}
+.dialog-pages .draft-page img{width:64%;margin-inline:auto}
+@media(max-width:640px){.dialog-pages .draft-page img{width:88%}}
