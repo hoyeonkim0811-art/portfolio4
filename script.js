@@ -1,4 +1,3 @@
-
 const projects = [
   {
     title: '가라앉다',
@@ -79,19 +78,24 @@ const projects = [
     highlight: '청소년디자인전람회 입선',
     subtitle: '패턴 디자인 · 2025',
     type: 'Photoshop · Illustrator',
+
     pages: [7, 8],
+
     captions: [
       '패턴 디자인 — 흰나비와 나자르 본주 모티프',
       '디자인 전개 — 상반된 상징의 반복 패턴과 색상'
     ],
+
     afterPages: [
       {
         src: 'pattern-mockup.jpg',
         caption: '목업 — 흰나비와 나자르 본주 패턴의 생활용품 적용',
-        sectionTitle: 'MOCK UP',
-        sectionDescription: '두 모티프를 활용한 패턴을 다양한 생활용품에 적용해 일상 속에서도 상반된 상징과 디자인의 분위기를 경험할 수 있도록 표현했습니다.'
+        isMockup: true
       }
     ],
+
+    mockupDescription: '두 모티프를 활용한 패턴을 다양한 생활용품에 적용해 일상 속에서도 상반된 상징과 디자인의 분위기를 경험할 수 있도록 표현했습니다.',
+
     description: '어두운 분위기를 지닌 나자르 본주와 대비되도록 바탕은 밝은 색으로 정하고, 불길한 요소로 흰나비를 선택했습니다. 색뿐 아니라 상징이 주는 분위기까지 서로 반대되도록 구성해, 패턴 안에 긴장감과 낯선 이야기를 담고자 했습니다.'
   },
 
@@ -129,11 +133,10 @@ const projects = [
   }
 ];
 
-
 const dialog = document.querySelector('#projectDialog');
 const dialogContent = dialog.querySelector('.dialog-content');
-let activeProject = 0;
 
+let activeProject = 0;
 
 function showProject(index) {
   activeProject = index;
@@ -170,7 +173,6 @@ function showProject(index) {
     }))
   ];
 
-
   dialogContent.innerHTML = `
     <p class="eyebrow">
       ${String(index + 1).padStart(2, '0')} / SELECTED WORK
@@ -178,9 +180,13 @@ function showProject(index) {
 
     <h2 class="dialog-title">${project.title}</h2>
 
-    <p class="${highlightClass}">${project.highlight}</p>
+    <p class="${highlightClass}">
+      ${project.highlight}
+    </p>
 
-    <p class="dialog-subtitle">${project.subtitle}</p>
+    <p class="dialog-subtitle">
+      ${project.subtitle}
+    </p>
 
     ${
       project.message
@@ -189,14 +195,15 @@ function showProject(index) {
             <b>기획 의도</b><br>
             ${project.description}
           </p>
-
           <p class="dialog-message">
             <b>주요 메시지</b>
             <span>${project.message}</span>
           </p>
         `
         : `
-          <p class="dialog-description">${project.description}</p>
+          <p class="dialog-description">
+            ${project.description}
+          </p>
         `
     }
 
@@ -225,62 +232,31 @@ function showProject(index) {
 
     ${
       project.type
-        ? `<p class="dialog-meta">TOOLS — ${project.type}</p>`
+        ? `
+          <p class="dialog-meta">
+            TOOLS — ${project.type}
+          </p>
+        `
         : ''
     }
 
     <div class="dialog-pages">
-      ${mediaItems.map(page => `
-        ${
-          page.sectionTitle
-            ? `
-              <div style="
-                padding: 30px 5% 20px;
-                border-top: 1px solid #e4e0d8;
-                background: #fcf9f4;
-              ">
-                <p style="
-                  margin: 0 0 10px;
-                  color: #706b63;
-                  font-size: 13px;
-                  font-weight: 700;
-                  letter-spacing: 0.04em;
-                ">
-                  ${page.sectionTitle}
-                </p>
 
-                <p style="
-                  max-width: 650px;
-                  margin: 0;
-                  color: #706d66;
-                  font-size: 13px;
-                  line-height: 1.8;
-                ">
-                  ${page.sectionDescription}
+      ${mediaItems.map(page => {
+
+        if (page.isMockup) {
+          return `
+            <section class="dialog-mockup-section">
+
+              <div class="dialog-section-heading">
+                <p class="dialog-section-title">MOCK UP</p>
+
+                <p class="dialog-section-description">
+                  ${project.mockupDescription}
                 </p>
               </div>
-            `
-            : ''
-        }
 
-        ${
-          page.isVideo
-            ? `
-              <figure class="dialog-page dialog-video-page">
-                <video
-                  controls
-                  playsinline
-                  preload="none"
-                  poster="${page.poster}"
-                >
-                  <source src="${page.src}" type="video/mp4">
-                  이 브라우저는 MP4 동영상을 지원하지 않습니다.
-                </video>
-                <figcaption>${page.caption}</figcaption>
-              </figure>
-            `
-            : `
-              <figure class="dialog-page${page.isDraft ? ' draft-page' : ''}">
+              <figure class="dialog-page">
                 <img
                   src="${page.src}"
                   alt="${page.alt}"
@@ -288,19 +264,52 @@ function showProject(index) {
                 >
                 <figcaption>${page.caption}</figcaption>
               </figure>
-            `
+
+            </section>
+          `;
         }
-      `).join('')}
+
+        if (page.isVideo) {
+          return `
+            <figure class="dialog-page dialog-video-page">
+              <video
+                controls
+                playsinline
+                preload="none"
+                poster="${page.poster}"
+              >
+                <source src="${page.src}" type="video/mp4">
+                이 브라우저는 MP4 동영상을 지원하지 않습니다.
+              </video>
+
+              <figcaption>${page.caption}</figcaption>
+            </figure>
+          `;
+        }
+
+        return `
+          <figure class="dialog-page${page.isDraft ? ' draft-page' : ''}">
+            <img
+              src="${page.src}"
+              alt="${page.alt}"
+              loading="lazy"
+            >
+            <figcaption>${page.caption}</figcaption>
+          </figure>
+        `;
+
+      }).join('')}
+
     </div>
   `;
 
-  if (!dialog.open) dialog.showModal();
+  if (!dialog.open) {
+    dialog.showModal();
+  }
 
   dialog.scrollTop = 0;
 }
 
-
-// 프로젝트 카드 클릭
 document.querySelectorAll('.project-card').forEach((card) => {
   const project = projects[Number(card.dataset.project)];
 
@@ -322,38 +331,28 @@ document.querySelectorAll('.project-card').forEach((card) => {
   });
 });
 
-
-// 모달 닫기
 document.querySelector('.dialog-close').addEventListener('click', () => {
   dialog.close();
 });
 
-
-// 이전 프로젝트
 document.querySelector('.dialog-prev').addEventListener('click', () => {
   if (activeProject > 0) {
     showProject(activeProject - 1);
   }
 });
 
-
-// 다음 프로젝트
 document.querySelector('.dialog-next').addEventListener('click', () => {
   if (activeProject < projects.length - 1) {
     showProject(activeProject + 1);
   }
 });
 
-
-// 모달 바깥 영역 클릭 시 닫기
 dialog.addEventListener('click', (event) => {
   if (event.target === dialog) {
     dialog.close();
   }
 });
 
-
-// 프로젝트 필터
 document.querySelectorAll('.filter').forEach((button) => {
   button.addEventListener('click', () => {
 
@@ -372,11 +371,11 @@ document.querySelectorAll('.filter').forEach((button) => {
       card.hidden =
         filter !== 'all' && card.dataset.category !== filter;
     });
+
   });
 });
 
-
-// Gentle entrance reveals keep the long page moving without hiding content when JS is unavailable.
+// Gentle entrance reveals
 const revealTargets = document.querySelectorAll(
   '.section-heading, .project-card, .manifesto-text, .about-layout, .tools-block, .credential-block'
 );
@@ -395,17 +394,20 @@ if (
 ) {
   document.documentElement.classList.add('reveal-ready');
 
-  const revealObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
-  });
+  const revealObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    }
+  );
 
   revealTargets.forEach((element) => {
     revealObserver.observe(element);
