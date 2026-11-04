@@ -3,7 +3,7 @@ const projects = [
 
   { title: 'A Gem in Korea', highlight: '대표 제품 디자인', subtitle: '전통문화 보드게임 · 2026', type: 'Rhino', pages: [9, 10, 11], captions: ['프로젝트 개요 — 전통 장식품을 만나는 보드게임', '디자인 전개 — 업사이클 시계·전통 모티프·QR 경험', '제품 설계 — 게임판·패키지 구조와 치수'], description: '음식이나 건축물을 주제로 한 보드게임과 차별화를 두기 위해 한국 전통 보석함을 소재로 정했습니다. 보석함을 어떻게 게임으로 풀어낼지 고민하던 중 영화 《쥬만지》의 게임판에서 영감을 얻어 현재의 게임판 형태로 발전시켰습니다. 쥬만지처럼 게임판의 각 칸에 QR 코드를 배치해, 플레이어가 코드를 스캔하고 해당 미션을 수행하도록 기획했습니다. 사용하지 않는 시계를 업사이클한 게임판과 전통 보석함에서 가져온 패키지 모티프를 통해 한국 전통 장식품의 이야기를 게임으로 경험하게 합니다.' },
 
-  { title: '건강을 끼우다', highlight: '대표 브랜드 디자인', subtitle: '샌드위치 브랜드 아이덴티티 · 2026', type: 'Photoshop · Illustrator', pages: [14, 15, 16], captions: ['브랜드 적용 — 패키지·모바일·사인 디자인', '브랜드 시스템 — 심볼·로고·컬러 변형', '응용 목업 — 여러 패키지와 매체 적용'], description: '2026년 식품 트렌드인 ‘가볍게 먹는 건강식’에서 출발했습니다. ‘가볍게 먹는 것’은 간편한 샌드위치로, ‘건강식’은 채소를 풍성하게 넣는 방식으로 풀어냈습니다. 필요한 영양소를 취향에 맞게 조합할 수 있는 브랜드를 기획하고, 채소를 담은 심볼과 초록색 중심의 패키지 디자인으로 발전시켰습니다.' },
+  { title: '건강을 끼우다', highlight: '대표 브랜드 디자인', subtitle: '샌드위치 브랜드 아이덴티티 · 2026', type: 'Photoshop · Illustrator', pages: [14, 15, 16], captions: ['브랜드 적용 — 패키지·모바일·사인 디자인', '브랜드 시스템 — 심볼·로고·컬러', '응용 목업 — 여러 패키지와 매체 적용'], inlinePages: { 14: [{ src: 'healthy-sandwich-customization.jpg', caption: '원하는 영양소와 재료를 선택해 나만의 샌드위치를 구성하는 맞춤형 조합 시스템입니다.' }] }, description: '2026년 식품 트렌드인 ‘가볍게 먹는 건강식’에서 출발했습니다. ‘가볍게 먹는 것’은 간편한 샌드위치로, ‘건강식’은 채소를 풍성하게 넣는 방식으로 풀어냈습니다. 필요한 영양소를 취향에 맞게 조합할 수 있는 브랜드를 기획하고, 채소를 담은 심볼과 초록색 중심의 패키지 디자인으로 발전시켰습니다.' },
 
   { title: '잔혹동화', highlight: '청소년디자인전람회 입선', subtitle: '책표지 디자인 · 2025', type: 'Photoshop · Illustrator', pages: [4, 5, 6], captions: ['책표지 디자인 — 표지의 최종 비주얼', '콘셉트 — 동화의 이면과 상징 조사', '디자인 전개 — 색상·타이포그래피와 책 목업'], processPages: [{ src: 'cruel-fairy-cover-v1.jpg', caption: '초기 시안 ver.1 — 검붉은 색과 동화 속 인물 실루엣으로 불길한 분위기 표현' }, { src: 'cruel-fairy-cover-v2.jpg', caption: '초기 시안 ver.2 — 거울과 독사과 등 상징을 중심으로 표지 구성 발전' }], description: '무서운 분위기를 표현할 때 흔히 떠올리는 검붉은 색을 중심으로 잡았습니다. 초기 시안에서는 동화 속 실루엣과 거울, 독사과 등의 상징을 활용해 어두운 분위기를 표현했습니다. 이후 요소들의 배치와 색상 조합을 여러 차례 검토하고 수정하며, 시각적 집중도를 높이는 방향으로 디자인을 발전시켰습니다. 최종적으로 검붉은 색상을 중심으로 주요 상징을 강조해 잔혹동화의 분위기가 더욱 뚜렷하게 드러나도록 완성했습니다.' },
 
@@ -47,11 +47,17 @@ function showProject(index) {
 
   const mediaItems = [
     ...(project.processPages || []).map(page => ({ ...page, isDraft: true, alt: `${project.title} ${page.caption}` })),
-    ...(project.pages || []).map((page, pageIndex) => ({
-      src: `page-${String(page).padStart(2, '0')}.jpg`,
-      alt: `${project.title} 포트폴리오 페이지 ${page}`,
-      caption: project.captions[pageIndex]
-    })),
+    ...(project.pages || []).flatMap((page, pageIndex) => [
+      {
+        src: `page-${String(page).padStart(2, '0')}.jpg`,
+        alt: `${project.title} 포트폴리오 페이지 ${page}`,
+        caption: project.captions[pageIndex]
+      },
+      ...((project.inlinePages && project.inlinePages[page]) || []).map(item => ({
+        ...item,
+        alt: `${project.title} ${item.caption}`
+      }))
+    ]),
     ...(project.video ? [{ ...project.video, isVideo: true }] : []),
     ...(project.afterPages || []).map(page => ({
       ...page,
