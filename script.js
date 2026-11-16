@@ -137,7 +137,7 @@ const projects = [
   // 신규 프로젝트: Mongwool
   {
     title: 'Mongwool',
-    highlight: '신규 캐릭터 디자인',
+    highlight: '애교 가득한 힐링 캐릭터',
     subtitle: '캐릭터 · 힐링 굿즈 · 2026',
     type: 'Photoshop · Illustrator',
     pages: [24, 25, 26],
